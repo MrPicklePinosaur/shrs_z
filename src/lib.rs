@@ -37,6 +37,14 @@ impl Frecency {
         let dx = Utc::now().timestamp() - self.access_time;
         (10000.0 * self.rank as f64 * (3.75 / ((0.0001 * dx as f64 + 0.1) + 0.25))) as u64
     }
+
+    pub fn rank(&self) -> u64 {
+        self.rank
+    }
+
+    pub fn access_time(&self) -> i64 {
+        self.access_time
+    }
 }
 
 #[derive(Default)]
@@ -60,7 +68,7 @@ pub fn before_command_hook(
         return Err(anyhow!("could not get z state"));
     };
 
-    // maybe clean up old entries
+    // TODO maybe clean up old entries
 
     // insert new entry
     match state.database.entry(ctx.run_ctx.working_dir.clone()) {
