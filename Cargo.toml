@@ -16,3 +16,4 @@ repository = "https://github.com/MrPicklePinosaur/shrs_z"
 shrs = { git = "https://github.com/MrPicklePinosaur/shrs" }
 
 clap = { version = "4.1", features = ["derive"] }
+chrono = { version = "0.4" }
