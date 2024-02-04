@@ -1,15 +1,19 @@
+mod builtin;
+
 use shrs::prelude::*;
+use crate::builtin::ZBuiltin;
 
-pub struct MyPlugin;
+pub struct ZPlugin;
 
-impl MyPlugin {
+impl ZPlugin {
     pub fn new() -> Self {
-        MyPlugin
+        ZPlugin
     }
 }
 
-impl Plugin for MyPlugin {
+impl Plugin for ZPlugin {
     fn init(&self, shell: &mut ShellConfig) -> anyhow::Result<()> {
+        shell.builtins.insert("z", ZBuiltin::default());
         Ok(())
     }
 }

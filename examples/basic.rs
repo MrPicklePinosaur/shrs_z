@@ -1,9 +1,9 @@
 use shrs::prelude::*;
-use shrs_z::MyPlugin;
+use shrs_z::ZPlugin;
 
 fn main() {
     let myshell = ShellBuilder::default()
-        .with_plugin(MyPlugin::new())
+        .with_plugin(ZPlugin::new())
         .build()
         .unwrap();
 

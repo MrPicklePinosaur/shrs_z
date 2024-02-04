@@ -14,3 +14,5 @@ repository = "https://github.com/MrPicklePinosaur/shrs_z"
 
 [dependencies]
 shrs = { git = "https://github.com/MrPicklePinosaur/shrs" }
+
+clap = { version = "4.1", features = ["derive"] }
