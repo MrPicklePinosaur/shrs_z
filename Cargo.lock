@@ -276,7 +276,7 @@ dependencies = [
  "heck",
  "proc-macro2",
  "quote",
- "syn 2.0.48",
+ "syn 2.0.66",
 ]
 
 [[package]]
@@ -1244,18 +1244,18 @@ checksum = "925383efa346730478fb4838dbe9137d2a47675ad789c546d150a6e1dd4ab31c"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.78"
+version = "1.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2422ad645d89c99f8f3e6b88a9fdeca7fabeac836b1002371c4367c8f984aae"
+checksum = "22244ce15aa966053a896d1accb3a6e68469b97c7f33f284b99f0d576879fc23"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
 name = "quote"
-version = "1.0.35"
+version = "1.0.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "291ec9ab5efd934aaf503a6466c5d5251535d108ee747472c3977cc5acc868ef"
+checksum = "0fa76aaf39101c457836aec0ce2316dbdc3ab723cdda1c6bd4e6ad4208acaca7"
 dependencies = [
  "proc-macro2",
 ]
@@ -1387,7 +1387,7 @@ checksum = "33c85360c95e7d137454dc81d9a4ed2b8efd8fbe19cee57357b32b9771fccb67"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.48",
+ "syn 2.0.66",
 ]
 
 [[package]]
@@ -1398,8 +1398,9 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "shrs"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c255f0b0812f2266de3dc21072c32f5ab9c6a7f1e77e231f33426979b6544837"
 dependencies = [
  "anyhow",
  "anymap",
@@ -1415,7 +1416,6 @@ dependencies = [
  "shrs_core",
  "shrs_job",
  "shrs_lang",
- "shrs_line",
  "shrs_utils",
  "signal-hook",
  "thiserror",
@@ -1423,15 +1423,19 @@ dependencies = [
 
 [[package]]
 name = "shrs_core"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e79168f3f7b284deb803f3a1c25d01936b78fb1732a2781632ae8f67e56c1be1"
 dependencies = [
  "anyhow",
  "anymap",
+ "arboard",
+ "chrono",
  "clap 4.4.18",
  "crossterm",
  "derive_builder 0.12.0",
  "dirs",
+ "glob",
  "lazy_static",
  "log",
  "multimap",
@@ -1439,17 +1443,35 @@ dependencies = [
  "pino_deref",
  "regex",
  "serde",
+ "shrs_core_macros",
  "shrs_job",
+ "shrs_lang",
  "shrs_utils",
+ "shrs_vi",
  "signal-hook",
  "skim",
+ "tempfile",
  "thiserror",
+ "trie-rs",
+ "unicode-width",
+]
+
+[[package]]
+name = "shrs_core_macros"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "65e49722f49758979547d8b2066dd809e326db5158a12a63f8b8de50cfa19349"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.66",
 ]
 
 [[package]]
 name = "shrs_job"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ebd26cff90c02c6512dfb1aa95eba8980ab345c62c649723a756ae094c952b5f"
 dependencies = [
  "anyhow",
  "lazy_static",
@@ -1460,12 +1482,12 @@ dependencies = [
 
 [[package]]
 name = "shrs_lang"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e7267121a82b2eb5b53aa95bc00e67c047ce20b124443da4a759541f407adc7c"
 dependencies = [
  "anyhow",
  "dirs",
- "glob",
  "lalrpop",
  "lalrpop-util",
  "lazy_static",
@@ -1473,35 +1495,15 @@ dependencies = [
  "nix 0.26.4",
  "pino_deref",
  "regex",
- "shrs_core",
  "shrs_job",
  "thiserror",
 ]
 
 [[package]]
-name = "shrs_line"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
-dependencies = [
- "anyhow",
- "arboard",
- "crossterm",
- "derive_builder 0.12.0",
- "dirs",
- "shrs_core",
- "shrs_lang",
- "shrs_utils",
- "shrs_vi",
- "tempfile",
- "thiserror",
- "trie-rs",
- "unicode-width",
-]
-
-[[package]]
 name = "shrs_utils"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eaef29f899308f06b44c5a94b6911af33da3b284e13c1057bd3c00ec73a48b8"
 dependencies = [
  "anyhow",
  "crossterm",
@@ -1513,8 +1515,9 @@ dependencies = [
 
 [[package]]
 name = "shrs_vi"
-version = "0.0.4"
-source = "git+https://github.com/MrPicklePinosaur/shrs#0dca7e126b840ec0060ca4ed1df54fae6903b3f4"
+version = "0.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "091f3eb9f96548de17725eeae879e4aec2d3ce83b8186ab2895de9a406c691a8"
 dependencies = [
  "anyhow",
  "lalrpop",
@@ -1525,7 +1528,7 @@ dependencies = [
 
 [[package]]
 name = "shrs_z"
-version = "0.1.0"
+version = "0.0.6"
 dependencies = [
  "chrono",
  "clap 4.4.18",
@@ -1654,9 +1657,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.48"
+version = "2.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f3531638e407dfc0814761abb7c00a5b54992b849452a0646b7f65c9f770f3f"
+checksum = "c42f3f41a2de00b01c0aaad383c5a45241efc8b2d1eda5661812fda5f3cdcff5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1719,7 +1722,7 @@ checksum = "fa0faa943b50f3db30a20aa7e265dbc66076993efed8463e8de414e5d06d3471"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.48",
+ "syn 2.0.66",
 ]
 
 [[package]]
@@ -1875,7 +1878,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.48",
+ "syn 2.0.66",
  "wasm-bindgen-shared",
 ]
 
@@ -1897,7 +1900,7 @@ checksum = "bae1abb6806dc1ad9e560ed242107c0f6c84335f1749dd4e8ddb012ebd5e25a7"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.48",
+ "syn 2.0.66",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]

@@ -8,7 +8,7 @@ use std::{
 use chrono::{DateTime, Utc};
 use shrs::{anyhow::anyhow, prelude::*};
 
-use crate::builtin::ZBuiltin;
+use crate::builtin::z_builtin;
 
 struct Frecency {
     /// Number of times the directory was accessed
@@ -59,19 +59,15 @@ struct ZState {
 
 pub fn before_command_hook(
     sh: &Shell,
-    sh_ctx: &mut Context,
-    sh_rt: &mut Runtime,
+    runtime: State<Runtime>,
+    mut z: StateMut<ZState>,
     ctx: &BeforeCommandCtx,
 ) -> anyhow::Result<()> {
     // update access directory after each command thats ran
-    let Some(state) = sh_ctx.state.get_mut::<ZState>() else {
-        return Err(anyhow!("could not get z state"));
-    };
-
     // TODO maybe clean up old entries
 
     // insert new entry
-    match state.database.entry(ctx.run_ctx.working_dir.clone()) {
+    match z.database.entry(runtime.working_dir.clone()) {
         Entry::Occupied(mut entry) => {
             entry.get_mut().access();
         },
@@ -79,7 +75,7 @@ pub fn before_command_hook(
             entry.insert(Frecency::new());
         },
     }
-    state.total_rank += 1;
+    z.total_rank += 1;
 
     Ok(())
 }
@@ -95,9 +91,9 @@ impl ZPlugin {
 impl Plugin for ZPlugin {
     fn init(&self, shell: &mut ShellConfig) -> anyhow::Result<()> {
         let state = ZState::default();
-        shell.state.insert(state);
+        shell.states.insert(state);
 
-        shell.builtins.insert("z", ZBuiltin::new());
+        shell.builtins.insert("z", z_builtin);
         shell.hooks.insert(before_command_hook);
 
         Ok(())
